@@ -1,0 +1,116 @@
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
+let genAI: GoogleGenerativeAI | null = null;
+
+function getGenAI(): GoogleGenerativeAI {
+  if (!genAI) {
+    genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+  }
+  return genAI;
+}
+
+export interface EvaluationResult {
+  is_correct: boolean;
+  response: string;
+}
+
+export async function evaluateLevel1(
+  language: string,
+  originalBuggyCode: string,
+  submittedCode: string
+): Promise<EvaluationResult> {
+  if (!submittedCode.trim()) {
+    return {
+      is_correct: false,
+      response: "INCORRECT\nNo code was submitted.",
+    };
+  }
+
+  try {
+    const model = getGenAI().getGenerativeModel({ model: "gemini-1.5-flash" });
+
+    const prompt = `You are evaluating a code fix submission for a programming competition.
+
+Language: ${language}
+
+Original buggy code:
+\`\`\`
+${originalBuggyCode}
+\`\`\`
+
+Student's submitted corrected code:
+\`\`\`
+${submittedCode}
+\`\`\`
+
+Does the student's code correctly fix ALL the logic and syntax errors in the original code? The fixed code must be logically correct and syntactically valid for the language.
+
+Respond with exactly one of these words on the first line: CORRECT or INCORRECT
+Then on the next line, briefly explain why in at most 2 sentences.`;
+
+    const result = await model.generateContent(prompt);
+    const text = result.response.text().trim();
+    const firstLine = text.split("\n")[0].trim().toUpperCase();
+    const isCorrect = firstLine === "CORRECT";
+
+    return {
+      is_correct: isCorrect,
+      response: text,
+    };
+  } catch (error) {
+    console.error("Gemini evaluation error:", error);
+    return {
+      is_correct: false,
+      response: "INCORRECT\nEvaluation service error. Manual review required.",
+    };
+  }
+}
+
+export async function evaluateLevel2or3(
+  level: number,
+  language: string,
+  problemStatement: string,
+  submittedCode: string
+): Promise<EvaluationResult> {
+  if (!submittedCode.trim()) {
+    return {
+      is_correct: false,
+      response: "INCORRECT\nNo code was submitted.",
+    };
+  }
+
+  try {
+    const model = getGenAI().getGenerativeModel({ model: "gemini-1.5-flash" });
+
+    const prompt = `You are evaluating a code solution for a programming competition (Level ${level}).
+
+Problem Statement:
+${problemStatement}
+
+Student's solution (Language: ${language}):
+\`\`\`
+${submittedCode}
+\`\`\`
+
+Does this code correctly solve the problem? Consider correctness, edge cases, and logical soundness.
+
+Respond with exactly one of these words on the first line: CORRECT or INCORRECT
+Then on the next line, briefly explain why in at most 2 sentences.`;
+
+    const result = await model.generateContent(prompt);
+    const text = result.response.text().trim();
+    const firstLine = text.split("\n")[0].trim().toUpperCase();
+    const isCorrect = firstLine === "CORRECT";
+
+    return {
+      is_correct: isCorrect,
+      response: text,
+    };
+  } catch (error) {
+    console.error("Gemini evaluation error:", error);
+    return {
+      is_correct: false,
+      response: "INCORRECT\nEvaluation service error. Manual review required.",
+    };
+  }
+}

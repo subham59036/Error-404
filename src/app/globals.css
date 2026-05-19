@@ -1,0 +1,183 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #00e676;
+  --color-primary-dim: rgba(0, 230, 118, 0.1);
+  --color-surface: #0d1219;
+  --color-surface-2: #111922;
+  --color-border: #1a2535;
+  --color-border-2: #243245;
+  --color-success: #00e676;
+  --color-danger: #ff3d3d;
+  --color-warning: #ffd600;
+  --color-text: #dde4ee;
+  --color-muted: #5c6b7a;
+  --font-display: "Orbitron", monospace;
+  --font-mono: "JetBrains Mono", monospace;
+  --background: #06080d;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes pulse-glow-green {
+  0%, 100% { box-shadow: 0 0 6px rgba(0, 230, 118, 0.3); }
+  50% { box-shadow: 0 0 22px rgba(0, 230, 118, 0.6); }
+}
+
+@keyframes pulse-glow-red {
+  0%, 100% { box-shadow: 0 0 6px rgba(255, 61, 61, 0.3); }
+  50% { box-shadow: 0 0 22px rgba(255, 61, 61, 0.6); }
+}
+
+@keyframes pulse-glow-yellow {
+  0%, 100% { box-shadow: 0 0 6px rgba(255, 214, 0, 0.3); }
+  50% { box-shadow: 0 0 22px rgba(255, 214, 0, 0.6); }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(24px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slide-down {
+  from { transform: translateY(-10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes dot-bounce {
+  0%, 80%, 100% { transform: scale(0.55); opacity: 0.35; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes scan-line {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes timer-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #06080d;
+  color: #dde4ee;
+  font-family: "JetBrains Mono", "Courier New", monospace;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Font variable aliases for components */
+:root {
+  --font-orbitron: "Orbitron", "Arial Black", sans-serif;
+  --font-jetbrains: "JetBrains Mono", "Courier New", monospace;
+}
+
+/* Subtle scanline texture */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.025) 2px,
+    rgba(0, 0, 0, 0.025) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Grid pattern background */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(26, 37, 53, 0.4) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26, 37, 53, 0.4) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: #0d1219; }
+::-webkit-scrollbar-thumb { background: #1a2535; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #243245; }
+
+/* Utility animation classes */
+.animate-blink { animation: blink 1s step-end infinite; }
+.animate-pulse-green { animation: pulse-glow-green 2s ease-in-out infinite; }
+.animate-pulse-red { animation: pulse-glow-red 2s ease-in-out infinite; }
+.animate-pulse-yellow { animation: pulse-glow-yellow 2s ease-in-out infinite; }
+.animate-slide-up { animation: slide-up 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+.animate-slide-down { animation: slide-down 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+.animate-fade-in { animation: fade-in 0.25s ease-out; }
+.animate-spin-slow { animation: spin-slow 1.2s linear infinite; }
+.animate-dot-bounce { animation: dot-bounce 1.4s ease-in-out infinite; }
+.animate-timer-pulse { animation: timer-pulse 0.8s ease-in-out infinite; }
+
+/* Monaco editor overrides */
+.monaco-editor .margin { background-color: #0d1219 !important; }
+.monaco-editor-background { background-color: #0d1219 !important; }
+
+/* Input focus styles */
+input:focus, textarea:focus, select:focus {
+  outline: none;
+}
+
+/* Selection color */
+::selection {
+  background-color: rgba(0, 230, 118, 0.25);
+  color: #dde4ee;
+}
+
+/* Prevent text selection during exam */
+.no-select {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Tab styles */
+.tab-active {
+  border-bottom: 2px solid #00e676;
+  color: #00e676;
+}
+
+/* Glow border utilities */
+.glow-green {
+  box-shadow: 0 0 0 1px rgba(0, 230, 118, 0.3), 0 0 16px rgba(0, 230, 118, 0.1);
+}
+.glow-red {
+  box-shadow: 0 0 0 1px rgba(255, 61, 61, 0.3), 0 0 16px rgba(255, 61, 61, 0.1);
+}
+.glow-yellow {
+  box-shadow: 0 0 0 1px rgba(255, 214, 0, 0.3), 0 0 16px rgba(255, 214, 0, 0.1);
+}
+
+/* Transition defaults */
+button, a, input, textarea, select {
+  transition-property: color, background-color, border-color, box-shadow, opacity, transform;
+  transition-duration: 150ms;
+  transition-timing-function: ease;
+}
