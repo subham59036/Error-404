@@ -93,16 +93,33 @@ export default function SecurityWrapper({
       }
     };
 
+    // Fires on F5 / Ctrl-R / browser refresh button.
+    // sendBeacon is used because a regular fetch is cancelled by the browser
+    // before it can complete during a page unload. Next.js client-side
+    // navigation (router.push) does NOT trigger beforeunload, so legitimate
+    // submission redirects are never caught here.
+    const handleBeforeUnload = () => {
+      if (disqualifiedRef.current) return;
+      disqualifiedRef.current = true;
+      const payload = new Blob(
+        [JSON.stringify({ teamId, level, timeTaken: timeTakenRef.current })],
+        { type: "application/json" }
+      );
+      navigator.sendBeacon("/api/exam/disqualify", payload);
+    };
+
     document.addEventListener("visibilitychange", handleVisibilityChange);
     window.addEventListener("blur", handleWindowBlur);
     document.addEventListener("contextmenu", handleContextMenu);
     document.addEventListener("keydown", handleKeyDown, true);
+    window.addEventListener("beforeunload", handleBeforeUnload);
 
     return () => {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       window.removeEventListener("blur", handleWindowBlur);
       document.removeEventListener("contextmenu", handleContextMenu);
       document.removeEventListener("keydown", handleKeyDown, true);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, [active, triggerDisqualify]);
 

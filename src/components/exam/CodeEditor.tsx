@@ -74,6 +74,12 @@ export default function CodeEditor({
     },
   };
 
+  // When height="100%" the outer div must also declare height:100% so the
+  // CSS percentage on the editor area resolves against a sized ancestor
+  // instead of collapsing to zero and causing Monaco to overflow upward
+  // on top of the toolbar.
+  const isFill = height === "100%";
+
   return (
     <div
       style={{
@@ -83,6 +89,7 @@ export default function CodeEditor({
         borderRadius: 4,
         overflow: "hidden",
         backgroundColor: "#0d1219",
+        ...(isFill ? { height: "100%" } : {}),
       }}
     >
       {/* Toolbar */}
@@ -196,8 +203,14 @@ export default function CodeEditor({
         )}
       </div>
 
-      {/* Editor area */}
-      <div style={{ position: "relative", height }}>
+      {/* Editor area — flex:1 when filling a parent container so the editor
+          occupies the space remaining after the toolbar, not the full 100%
+          which would overlap it. For fixed pixel heights the explicit value
+          is applied directly as before. */}
+      <div style={isFill
+        ? { position: "relative", flex: 1, minHeight: 0 }
+        : { position: "relative", height }
+      }>
         {!editorMounted && (
           <div
             style={{

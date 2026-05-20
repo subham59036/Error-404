@@ -21,6 +21,14 @@ export default function Timer({ initialSeconds, onTimeout, onTick, paused = fals
   useEffect(() => { onTimeoutRef.current = onTimeout; }, [onTimeout]);
   useEffect(() => { onTickRef.current = onTick; }, [onTick]);
 
+  // Call onTick after remaining has been committed to state —
+  // never inside the setRemaining updater, which runs during render.
+  useEffect(() => {
+    if (onTickRef.current) {
+      onTickRef.current(remaining);
+    }
+  }, [remaining]);
+
   useEffect(() => {
     if (paused) return;
     if (firedRef.current) return;
@@ -28,7 +36,6 @@ export default function Timer({ initialSeconds, onTimeout, onTick, paused = fals
     const id = setInterval(() => {
       setRemaining((prev) => {
         const next = prev - 1;
-        if (onTickRef.current) onTickRef.current(next);
         if (next <= 0 && !firedRef.current) {
           firedRef.current = true;
           clearInterval(id);
