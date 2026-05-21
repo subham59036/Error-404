@@ -74,8 +74,12 @@ export default function ExamPage() {
       const status = await statusRes.json();
 
       if (status.hasSubmitted) {
-        // Already submitted — go to result
-        router.replace(`/exam/result?level=${level}`);
+        // Already submitted — go to result. Append &dq=1 when the submission
+        // was a disqualification (e.g. page reload) so the result page renders
+        // the correct status instead of falling back to "Incorrect".
+        router.replace(
+          `/exam/result?level=${level}${status.isDisqualified ? "&dq=1" : ""}`
+        );
         return;
       }
 
