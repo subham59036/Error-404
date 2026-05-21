@@ -368,7 +368,7 @@ function ResultContent() {
 
         {/* Footer */}
         <p style={{ textAlign: "center", fontSize: 11, color: "#5c6b7a", marginTop: 24 }}>
-          Pass The Bug · Coding Competition · Level {result.level} Complete
+          Error404 · Coding Competition · Level {result.level} Complete
         </p>
       </div>
     </div>

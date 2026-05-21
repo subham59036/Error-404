@@ -3,8 +3,8 @@ import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata: Metadata = {
-  title: "Pass The Bug — Coding Competition",
-  description: "Official competition platform for Pass The Bug coding event",
+  title: "Error404 — Coding Competition",
+  description: "Official competition platform for Error404 coding event",
 };
 
 export default function RootLayout({

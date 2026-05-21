@@ -206,7 +206,7 @@ export default function HomePage() {
           textTransform: "uppercase",
         }}
       >
-        Pass The Bug · Coding Competition Platform
+        Error404 · Coding Competition Platform
       </footer>
     </div>
   );

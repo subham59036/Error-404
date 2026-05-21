@@ -58,7 +58,7 @@ export default function Logo({ size = "md", showText = true }: LogoProps) {
             className={`font-display font-bold tracking-widest uppercase ${d.text} text-[#00e676]`}
             style={{ fontFamily: "'Orbitron', monospace", letterSpacing: "0.15em" }}
           >
-            Pass The Bug
+            Error404
           </span>
           <span
             className="text-[10px] tracking-[0.3em] uppercase text-[#5c6b7a] mt-0.5"
