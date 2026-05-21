@@ -1,17 +1,17 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenAI } from "@google/genai";
 
-let genAI: GoogleGenerativeAI | null = null;
+let genAI: GoogleGenAI | null = null;
 
-function getGenAI(): GoogleGenerativeAI {
+function getGenAI(): GoogleGenAI {
   if (!genAI) {
-    genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+    genAI = new GoogleGenAI({apiKey: process.env.GEMINI_API_KEY!});
   }
   return genAI;
 }
 
 export interface EvaluationResult {
   is_correct: boolean;
-  response: string;
+  response: string | undefined;
 }
 
 export async function evaluateLevel1(
@@ -27,9 +27,10 @@ export async function evaluateLevel1(
   }
 
   try {
-    const model = getGenAI().getGenerativeModel({ model: "gemini-1.5-flash" });
-
-    const prompt = `You are evaluating a code fix submission for a programming competition.
+  
+    const result = await getGenAI().models.generateContent({ 
+      model: "gemini-1.5-flash",
+      contents: `You are evaluating a code fix submission for a programming competition.
 
 Language: ${language}
 
@@ -46,11 +47,12 @@ ${submittedCode}
 Does the student's code correctly fix ALL the logic and syntax errors in the original code? The fixed code must be logically correct and syntactically valid for the language.
 
 Respond with exactly one of these words on the first line: CORRECT or INCORRECT
-Then on the next line, briefly explain why in at most 2 sentences.`;
+Then on the next line, briefly explain why in at most 2 sentences.`,
 
-    const result = await model.generateContent(prompt);
-    const text = result.response.text().trim();
-    const firstLine = text.split("\n")[0].trim().toUpperCase();
+  })
+
+    const text = await result.text?.trim();
+    const firstLine = text?.split("\n")[0].trim().toUpperCase();
     const isCorrect = firstLine === "CORRECT";
 
     return {
@@ -80,9 +82,10 @@ export async function evaluateLevel2or3(
   }
 
   try {
-    const model = getGenAI().getGenerativeModel({ model: "gemini-1.5-flash" });
 
-    const prompt = `You are evaluating a code solution for a programming competition (Level ${level}).
+    const result = await getGenAI().models.generateContent({ 
+      model: "gemini-1.5-flash",
+      contents: `You are evaluating a code solution for a programming competition (Level ${level}).
 
 Problem Statement:
 ${problemStatement}
@@ -95,11 +98,12 @@ ${submittedCode}
 Does this code correctly solve the problem? Consider correctness, edge cases, and logical soundness.
 
 Respond with exactly one of these words on the first line: CORRECT or INCORRECT
-Then on the next line, briefly explain why in at most 2 sentences.`;
+Then on the next line, briefly explain why in at most 2 sentences.`,
 
-    const result = await model.generateContent(prompt);
-    const text = result.response.text().trim();
-    const firstLine = text.split("\n")[0].trim().toUpperCase();
+  })
+
+    const text = await result.text?.trim();
+    const firstLine = text?.split("\n")[0].trim().toUpperCase();
     const isCorrect = firstLine === "CORRECT";
 
     return {
