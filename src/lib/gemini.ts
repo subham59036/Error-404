@@ -29,7 +29,7 @@ export async function evaluateLevel1(
   try {
   
     const result = await getGenAI().models.generateContent({ 
-      model: "gemini-1.5-flash",
+      model: "gemini-2.5-flash",
       contents: `You are evaluating a code fix submission for a programming competition.
 
 Language: ${language}
@@ -84,7 +84,7 @@ export async function evaluateLevel2or3(
   try {
 
     const result = await getGenAI().models.generateContent({ 
-      model: "gemini-1.5-flash",
+      model: "gemini-2.5-flash",
       contents: `You are evaluating a code solution for a programming competition (Level ${level}).
 
 Problem Statement:
