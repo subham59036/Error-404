@@ -32,7 +32,7 @@ const LEVEL_CONFIGS = [
     ],
   },
   {
-    level: 1,
+    level: 2,
     label: "Level 2 — Advanced Debugging",
     description: "Provide buggy code (with logic and syntax errors) for each language. Teams will pick one language and fix it.",
     languages: [
