@@ -42,8 +42,8 @@ export async function POST(request: NextRequest) {
 
     if (level === 1 || level === 2) {
       const questionResult = await db.execute({
-        sql: `SELECT content FROM questions WHERE level = 1 AND language = ?`,
-        args: [language],
+        sql: `SELECT content FROM questions WHERE level = ? AND language = ?`,
+        args: [level, language],
       });
       const question = questionResult.rows[0];
       const originalCode = question ? (question.content as string) : "";
