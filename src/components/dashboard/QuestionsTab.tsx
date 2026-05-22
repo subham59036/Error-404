@@ -32,15 +32,20 @@ const LEVEL_CONFIGS = [
     ],
   },
   {
-    level: 2,
-    label: "Level 2 — Problem Solving",
-    description: "Write a problem statement. Teams will solve it in their preferred language.",
-    languages: [{ value: "general", label: "Problem Statement", monacoLang: "markdown" }],
+    level: 1,
+    label: "Level 2 — Advanced Debugging",
+    description: "Provide buggy code (with logic and syntax errors) for each language. Teams will pick one language and fix it.",
+    languages: [
+      { value: "c", label: "C", monacoLang: "c" },
+      { value: "javascript", label: "JavaScript", monacoLang: "javascript" },
+      { value: "python", label: "Python", monacoLang: "python" },
+      { value: "java", label: "Java", monacoLang: "java" },
+    ],
   },
   {
     level: 3,
-    label: "Level 3 — Advanced Problem",
-    description: "Write a harder problem statement. Teams will solve it in their preferred language.",
+    label: "Level 3 — Problem Solving",
+    description: "Write a problem statement. Teams will solve it in their preferred language.",
     languages: [{ value: "general", label: "Problem Statement", monacoLang: "markdown" }],
   },
 ];
@@ -326,7 +331,7 @@ export default function QuestionsTab({ token }: QuestionsTabProps) {
                       />
                     </div>
                     <p style={{ fontSize: 10, color: "#5c6b7a", marginTop: 6 }}>
-                      {levelConfig.level === 1
+                      {levelConfig.level === 1 || levelConfig.level === 2
                         ? "Write the buggy code here. Include both logic and syntax errors."
                         : "Write the problem statement clearly. Gemini will evaluate submissions against this."}
                     </p>

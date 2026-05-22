@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { initDB, getDB } from "@/lib/db";
-import { evaluateLevel1, evaluateLevel2or3 } from "@/lib/gemini";
+import { evaluateLevel1or2, evaluateLevel3 } from "@/lib/gemini";
 
 export async function POST(request: NextRequest) {
   try {
@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
     // Evaluate the code with Gemini
     let evaluationResult;
 
-    if (level === 1) {
+    if (level === 1 || level === 2) {
       const questionResult = await db.execute({
         sql: `SELECT content FROM questions WHERE level = 1 AND language = ?`,
         args: [language],
@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
       const question = questionResult.rows[0];
       const originalCode = question ? (question.content as string) : "";
 
-      evaluationResult = await evaluateLevel1(language, originalCode, code || "");
+      evaluationResult = await evaluateLevel1or2(language, originalCode, code || "");
     } else {
       const questionResult = await db.execute({
         sql: `SELECT content FROM questions WHERE level = ? AND language = 'general'`,
@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
       const question = questionResult.rows[0];
       const problemStatement = question ? (question.content as string) : "";
 
-      evaluationResult = await evaluateLevel2or3(level, language, problemStatement, code || "");
+      evaluationResult = await evaluateLevel3(level, language, problemStatement, code || "");
     }
 
     const now = Date.now();

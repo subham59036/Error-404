@@ -14,7 +14,7 @@ export interface EvaluationResult {
   response: string | undefined;
 }
 
-export async function evaluateLevel1(
+export async function evaluateLevel1or2(
   language: string,
   originalBuggyCode: string,
   submittedCode: string
@@ -68,7 +68,7 @@ Then on the next line, briefly explain why in at most 2 sentences.`,
   }
 }
 
-export async function evaluateLevel2or3(
+export async function evaluateLevel3(
   level: number,
   language: string,
   problemStatement: string,

@@ -8,15 +8,15 @@ export function generateToken(): string {
 export async function createSession(deviceId: string): Promise<string | null> {
   const db = await initDB();
 
-  // Check if any active session exists (single device constraint)
+  // Check if any 3 active session exists (triple device constraint)
   const now = Date.now();
   const existing = await db.execute({
     sql: `SELECT id FROM superuser_sessions WHERE expires_at > ?`,
     args: [now],
   });
 
-  if (existing.rows.length > 0) {
-    return null; // Another device is already logged in
+  if (existing.rows.length >= 3) {
+    return null; // Maximum 3 devices are already logged in
   }
 
   // Clean up expired sessions
