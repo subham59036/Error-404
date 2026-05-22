@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
     const submission = submissionResult.rows[0] || null;
 
     let isQualified = false;
-    if (level === 1) {
+    if (level === 1 || level === 2) {
       const teamResult = await db.execute({
         sql: `SELECT id FROM teams WHERE id = ?`,
         args: [teamId],

@@ -214,7 +214,7 @@ export default function LeaderboardTab({ token }: LeaderboardTabProps) {
         >
           <Trophy size={32} style={{ marginBottom: 12, opacity: 0.3 }} />
           <p style={{ fontSize: 13 }}>
-            {level === 1
+            {(level === 1)
               ? "No teams have registered yet."
               : `No teams have been promoted to Level ${level} yet.`}
           </p>

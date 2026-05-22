@@ -128,7 +128,7 @@ export default function ExamPage() {
 
   // When language changes in Level 1, update displayed question
   useEffect(() => {
-    if (level === 1) {
+    if (level === 1 || level === 2) {
       setQuestion(questions[language] || "");
     }
   }, [language, questions, level]);
@@ -279,7 +279,7 @@ export default function ExamPage() {
   }
 
   const availableLangs: Language[] =
-    level === 1 ? ["c", "javascript", "python", "java"] : ["c", "javascript", "python", "java"];
+    (level === 1 || level === 2) ? ["c", "javascript", "python", "java"] : ["c", "javascript", "python", "java"];
 
   return (
     <SecurityWrapper
@@ -422,7 +422,7 @@ export default function ExamPage() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: level === 1 ? "1fr 1fr" : "2fr 3fr",
+              gridTemplateColumns: (level === 1 || level === 2) ? "1fr 1fr" : "2fr 3fr",
               flex: 1,
               minHeight: 0,
               height: "calc(100vh - 70px)",
@@ -458,9 +458,9 @@ export default function ExamPage() {
                     textTransform: "uppercase",
                   }}
                 >
-                  {level === 1 ? "Buggy Code" : "Problem Statement"}
+                  {(level === 1 || level === 2) ? "Buggy Code" : "Problem Statement"}
                 </span>
-                {level === 1 && (
+                {(level === 1 || level === 2) && (
                   <span
                     style={{
                       fontSize: 11,
@@ -534,7 +534,7 @@ export default function ExamPage() {
                     textTransform: "uppercase",
                   }}
                 >
-                  {level === 1 ? "Write Corrected Code" : "Write Your Solution"}
+                  {(level === 1 || level === 2) ? "Write Corrected Code" : "Write Your Solution"}
                 </span>
                 {level !== 1 && (
                   <span style={{ fontSize: 11, color: "#5c6b7a" }}>

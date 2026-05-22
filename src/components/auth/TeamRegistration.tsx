@@ -185,7 +185,7 @@ export default function TeamRegistration() {
               statusBadge = <Badge variant="correct">Correct</Badge>;
             } else if (ls.hasSubmitted) {
               statusBadge = <Badge variant="incorrect">Submitted</Badge>;
-            } else if (ls.isPromoted || (lvlNum === 1)) {
+            } else if (ls.isPromoted || (lvlNum === 1) || (lvlNum === 2)) {
               statusBadge = ls.isActive ? <Badge variant="active" pulse>Live</Badge> : <Badge variant="inactive">Waiting</Badge>;
             } else {
               statusBadge = <Badge variant="inactive">Locked</Badge>;

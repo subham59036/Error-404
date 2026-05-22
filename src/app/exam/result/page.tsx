@@ -20,8 +20,8 @@ interface ResultData {
 function ResultContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const level = parseInt(searchParams.get("level") || "1");
-  const isDq = searchParams.get("dq") === "1";
+  const level = parseInt(searchParams.get("level") || "1" || "2");
+  const isDq = ["1", "2"].includes(searchParams.get("dq") ?? "");
 
   const [teamId, setTeamId] = useState<string | null>(null);
   const [result, setResult] = useState<ResultData | null>(null);

@@ -67,7 +67,7 @@ export async function GET(
       const progression = progressionMap[level];
 
       let isQualified = false;
-      if (level === 1) {
+      if (level === 1 || level === 2) {
         isQualified = true;
       } else {
         isQualified = !!(progression?.is_promoted);
