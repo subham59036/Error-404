@@ -107,7 +107,10 @@ export async function initDB(): Promise<Client> {
     { level: 1, language: "javascript" },
     { level: 1, language: "python" },
     { level: 1, language: "java" },
-    { level: 2, language: "general" },
+    { level: 2, language: "c" },
+    { level: 2, language: "javascript" },
+    { level: 2, language: "python" },
+    { level: 2, language: "java" },
     { level: 3, language: "general" },
   ];
 

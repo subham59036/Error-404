@@ -101,7 +101,7 @@ export default function ExamPage() {
       const qRes = await fetch(`/api/exam/questions?level=${level}`);
       if (qRes.ok) {
         const qData = await qRes.json();
-        if (level === 1) {
+        if (level === 1 || level === 2) {
           const questionsData: Record<string, string> = {};
           for (const q of qData.questions as Array<{ language: string; content: string }>) {
             questionsData[q.language] = q.content;
