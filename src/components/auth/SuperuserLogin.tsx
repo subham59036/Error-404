@@ -230,7 +230,7 @@ export default function SuperuserLogin() {
       </form>
 
       <p style={{ fontSize: 11, color: "#5c6b7a", textAlign: "center", marginTop: 18 }}>
-        ⚡ Only 1 device may be logged in at a time
+        ⚡ Only 3 device may be logged in at a time
       </p>
     </div>
   );

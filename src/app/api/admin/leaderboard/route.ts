@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
     // Get teams that are eligible for this level
     let teamIds: string[] = [];
 
-    if (level === 1 || level === 2) {
+    if (level === 1) {
       const teamsResult = await db.execute({
         sql: `SELECT id FROM teams`,
         args: [],
