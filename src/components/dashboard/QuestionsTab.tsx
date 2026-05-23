@@ -26,7 +26,7 @@ const LEVEL_CONFIGS = [
     description: "Provide buggy code (with logic and syntax errors) for each language. Teams will pick one language and fix it.",
     languages: [
       { value: "c", label: "C", monacoLang: "c" },
-      { value: "javascript", label: "JavaScript", monacoLang: "javascript" },
+      { value: "c++", label: "C++", monacoLang: "c++" },
       { value: "python", label: "Python", monacoLang: "python" },
       { value: "java", label: "Java", monacoLang: "java" },
     ],
@@ -37,7 +37,7 @@ const LEVEL_CONFIGS = [
     description: "Provide buggy code (with logic and syntax errors) for each language. Teams will pick one language and fix it.",
     languages: [
       { value: "c", label: "C", monacoLang: "c" },
-      { value: "javascript", label: "JavaScript", monacoLang: "javascript" },
+      { value: "c++", label: "C++", monacoLang: "c++" },
       { value: "python", label: "Python", monacoLang: "python" },
       { value: "java", label: "Java", monacoLang: "java" },
     ],

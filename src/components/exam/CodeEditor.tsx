@@ -27,7 +27,7 @@ export default function CodeEditor({
   showLanguageSelector = true,
   readOnly = false,
   height = "360px",
-  availableLanguages = ["c", "javascript", "python", "java"],
+  availableLanguages = ["c", "c++", "python", "java"],
 }: CodeEditorProps) {
   const [editorMounted, setEditorMounted] = useState(false);
   const [editorKey, setEditorKey] = useState(0);

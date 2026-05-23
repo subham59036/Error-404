@@ -16,7 +16,7 @@
 2. You are redirected to the **Dashboard** at `/dashboard`.
 
 **Dashboard tabs:**
-- **Questions** — Write and save questions for each level. Level 1 requires separate buggy code for C, JavaScript, Python, and Java. Levels 2 and 3 require a single problem statement.
+- **Questions** — Write and save questions for each level. Level 1 requires separate buggy code for C, C++, Python, and Java. Levels 2 and 3 require a single problem statement.
 - **Exam** — Set time limits and activate/deactivate each level. Only activate a level when all teams are ready.
 - **Leaderboard** — View ranked results for any level. Click **Promote** to advance a team to the next level.
 - **Teams** — See all registered teams with full member details.

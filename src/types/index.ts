@@ -59,7 +59,7 @@ export interface SuperuserSession {
   expires_at: number;
 }
 
-export type Language = "c" | "javascript" | "python" | "java";
+export type Language = "c" | "c++" | "python" | "java";
 export type ExamLevel = 1 | 2 | 3;
 
 export interface LevelStatus {
@@ -102,7 +102,7 @@ export const DEPARTMENTS = [
 
 export const LANGUAGES: { value: Language; label: string; monacoLang: string }[] = [
   { value: "c", label: "C", monacoLang: "c" },
-  { value: "javascript", label: "JavaScript", monacoLang: "javascript" },
+  { value: "c++", label: "C++", monacoLang: "c++" },
   { value: "python", label: "Python", monacoLang: "python" },
   { value: "java", label: "Java", monacoLang: "java" },
 ];

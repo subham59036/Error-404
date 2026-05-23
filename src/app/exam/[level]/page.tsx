@@ -279,7 +279,7 @@ export default function ExamPage() {
   }
 
   const availableLangs: Language[] =
-    (level === 1 || level === 2) ? ["c", "javascript", "python", "java"] : ["c", "javascript", "python", "java"];
+    (level === 1 || level === 2) ? ["c", "c++", "python", "java"] : ["c", "c++", "python", "java"];
 
   return (
     <SecurityWrapper
