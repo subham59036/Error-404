@@ -95,7 +95,8 @@ export interface LeaderboardEntry {
 export const DEPARTMENTS = [
   "Computer Science & Engineering",
   "Electronics & Communication Engineering",
-  "Information Technology",
+  "Artificial Intelligence & Machine Learning",
+  "Civil Engineering",
   "Electrical Engineering",
   "Mechanical Engineering",
 ] as const;
