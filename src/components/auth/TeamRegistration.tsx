@@ -13,7 +13,8 @@ import type { TeamStatus } from "@/types";
 const DEPT_OPTIONS = [
   "Computer Science & Engineering",
   "Electronics & Communication Engineering",
-  "Information Technology",
+  "Artificial Intelligence & Machine Learning",
+  "Civil Engineering",
   "Electrical Engineering",
   "Mechanical Engineering",
 ];
